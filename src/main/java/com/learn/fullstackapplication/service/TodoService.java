@@ -1,6 +1,5 @@
 package com.learn.fullstackapplication.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,8 +13,6 @@ import com.learn.fullstackapplication.repo.TodoRepository;
 @Service
 public class TodoService {
 
-	static List<Todo> listTodos = new ArrayList<>();
-	
 	
 	@Autowired
 	private TodoRepository todoRepository;

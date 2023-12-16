@@ -1,14 +1,22 @@
 package com.learn.fullstackapplication.entity;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.annotation.Generated;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -29,9 +37,7 @@ public class Todo {
 	private String description;
 
 	@Column(name = "created_date")
-	@Temporal(TemporalType.DATE)
-	@JsonIgnore
-	private Date createdDate;
+	private LocalDate createdDate;
 
 	@Column(name = "is_complete")
 	private boolean isComplete;
@@ -39,13 +45,16 @@ public class Todo {
 	public Todo() {
 	}
 
-	public Todo(int id, String title, String description, boolean isComplete) {
+	
+	public Todo(int id, String title, String description, LocalDate createdDate, boolean isComplete) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.description = description;
+		this.createdDate = createdDate;
 		this.isComplete = isComplete;
 	}
+
 
 	public int getId() {
 		return id;
@@ -71,11 +80,11 @@ public class Todo {
 		this.description = description;
 	}
 
-	public Date getCreatedDate() {
+	public LocalDate getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(Date createdDate) {
+	public void setCreatedDate(LocalDate createdDate) {
 		this.createdDate = createdDate;
 	}
 
