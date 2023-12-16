@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.learn.fullstackapplication.entity.Todo;
 import com.learn.fullstackapplication.service.TodoService;
 
-
 @RestController
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class TodoController {
 
 	@Autowired
@@ -58,7 +58,7 @@ public class TodoController {
 		}
 	}
 
-	@PostMapping(value = "/todo")
+	@PostMapping(value = "/todos")
 	public ResponseEntity<?> saveTodos(@RequestBody Todo todo) {
 		try {
 			System.out.println(todo.toString());
@@ -86,7 +86,7 @@ public class TodoController {
 	public ResponseEntity<?> deleteTodo(@PathVariable int id) {
 		try {
 			todoService.deleteTodo(id);
-			return new ResponseEntity<>(Map.of("msg", "Success"), HttpStatus.OK);
+			return new ResponseEntity<>(Map.of("msg", "Todo Deleted Success"), HttpStatus.OK);
 		} catch (RuntimeException e) {
 			logger.info("", e.getMessage());
 			return new ResponseEntity<>(Map.of("Message", "Something Wrong... Todo Not Deleted"), HttpStatus.OK);
